@@ -5,15 +5,19 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        ExcelGenerator wg = new ExcelGenerator("/Users/karelbilek/insolve/template/plachta.xls",
-                "/Users/karelbilek/insolve/template/resultie",
-                "xls",
-                "{\"sideways\":1, \"fitWidth\":1, \"fitHeight\":1, \"hlavicky\":[\"vse\"],"
-                + "\"entities\":["
-                + "{\"type\":\"Kauzy\",\"data\":{\"jmenoSoudu\":\"bluargh\", \"spisovaZnacka\":\"bluargh\", \"popis\":\"bluargh\", \"celkem\":\"123.45\"}}"
-                + ",{\"type\":\"Veritele\",\"data\":{\"poradCislo\":\"1\", \"dorucenoSoudu\":\"1.1.2011\",\"jmenoVeritele\":\"bluarh\", \"rcIc\":\"bigdick\",\"vysePohledavek\":\"88.48\"}}"
-                + "]}");
-        wg.doIt();
+        String isWord = args[0];
+        String address=args[1];
+        String result=args[2];
+        String resultType=args[3];
+        String json=args[4];
+        ObecnyGenerator dd;
+        if (isWord.equals("1")) {
+            dd= new WordGenerator(address, result, resultType, json);
+        } else {
+            dd = new ExcelGenerator(address, result, resultType, json);
+        }
+        dd.doIt();
+        
     }
 
 

@@ -1,92 +1,60 @@
 package filegen;
 
-import com.artofsolving.jodconverter.DocumentConverter;
-import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
-import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
-import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConverter;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.ConnectException;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
 import net.sf.jooreports.templates.DocumentTemplate;
 import net.sf.jooreports.templates.DocumentTemplateFactory;
 
 
-public class WordGenerator {
-    public String getNativeFormat(){
+public class WordGenerator extends ObecnyGenerator {
+    
+    public WordGenerator(String templateName, String finalName, String finalFormat, String jsonstring) {
+        super(templateName,finalName,finalFormat,jsonstring);
+    }
+
+    protected String getNativeFormat() {
         return "odt";
     }
 
-    String sourceName;
-
-    String finalName;
-    String finalFormat;
-    String jsonstring;
-
-    public WordGenerator(String sourceName, String finalName, String finalFormat, String jsonstring) {
-        this.sourceName = sourceName;
-        this.finalName = finalName;
-        this.finalFormat = finalFormat;
-        this.jsonstring = jsonstring;
-    }
-
-    public void doIt() {
-        
-    }
-
-
-    public HashMap getJsonMap() throws IOException {
-            return new ObjectMapper().
-                    readValue(jsonstring, HashMap.class);
-
-    }
-
-    public File generateDifferent(String endformat) throws Exception {
-        File original = generateNatural();
-        File convertedFile = File.createTempFile("convfile", "." + endformat);
-
-        OpenOfficeConnection connection = new SocketOpenOfficeConnection(8100);
-        connection.connect();
-        DocumentConverter converter = new OpenOfficeDocumentConverter(connection);
-        converter.convert(original, convertedFile);
-        connection.disconnect();
-        return convertedFile;
-    }
-
-    public File generateNatural() throws Exception {
+    protected File generateNatural(File templateName, Object mapO) throws Exception {
         DocumentTemplateFactory documentTemplateFactory =
                 new DocumentTemplateFactory();
+
+        Map<String, String> mapa=(Map<String,String>) mapO;
+
         DocumentTemplate template;
 
-            InputStream is = new FileInputStream(sourceName);
-            template = documentTemplateFactory.getTemplate(is);
-            is.close();
+        InputStream is = new FileInputStream(templateName);
+        template = documentTemplateFactory.getTemplate(is);
+        is.close();
 
-            File ODTFile = File.createTempFile("ODTemp", ".odt");
-            FileOutputStream outStream = new FileOutputStream(ODTFile);
+        File ODTFile = File.createTempFile("ODTemp", ".odt");
+        FileOutputStream outStream = new FileOutputStream(ODTFile);
 
 
-            template.createDocument(getJsonMap(), outStream);
+        template.createDocument(mapa, outStream);
 
-            outStream.close();
+        outStream.close();
 
-            System.out.println(ODTFile);
-            //Runtime.getRuntime().exec("open "+ODTFile);
+        System.out.println(ODTFile);
+        //Runtime.getRuntime().exec("open "+ODTFile);
 
-            ODTFile.deleteOnExit();
+        ODTFile.deleteOnExit();
 
-            //AllHelper.rekniNahlas(
-              //      "Soubor vygenerovan.");
-            return ODTFile;
+        //AllHelper.rekniNahlas(
+        //      "Soubor vygenerovan.");
+        return ODTFile;
 
 
     }
+    
+    protected TypeReference getType() {
+        return new TypeReference<Map<String, String>>() {
+        };
+    }
+
 }

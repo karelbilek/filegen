@@ -57,7 +57,7 @@ public abstract class ObecnyGenerator {
     private File generateDifferent(String endformat, File original) throws Exception {
         File convertedFile = File.createTempFile("convfile", "." + endformat);
 
-        OpenOfficeConnection connection = new SocketOpenOfficeConnection(8100);
+        OpenOfficeConnection connection = new SocketOpenOfficeConnection(8101);
         connection.connect();
         DocumentConverter converter = new OpenOfficeDocumentConverter(connection);
         converter.convert(original, convertedFile);

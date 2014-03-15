@@ -24,7 +24,7 @@ public class WordGenerator extends ObecnyGenerator {
         DocumentTemplateFactory documentTemplateFactory =
                 new DocumentTemplateFactory();
 
-        Map<String, String> mapa=(Map<String,String>) mapO;
+        WordData wd=(WordData) mapO;
 
         DocumentTemplate template;
 
@@ -35,7 +35,7 @@ public class WordGenerator extends ObecnyGenerator {
         File ODTFile = File.createTempFile("ODTemp", ".odt");
         FileOutputStream outStream = new FileOutputStream(ODTFile);
 
-
+        Map<String, Object> mapa = wd.all();
         template.createDocument(mapa, outStream);
 
         outStream.close();
@@ -53,7 +53,7 @@ public class WordGenerator extends ObecnyGenerator {
     }
     
     protected TypeReference getType() {
-        return new TypeReference<Map<String, String>>() {
+        return new TypeReference<WordData>() {
         };
     }
 

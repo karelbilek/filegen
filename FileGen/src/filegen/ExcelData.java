@@ -9,5 +9,5 @@ public class ExcelData {
     public boolean fitHeight;
 
     public List<ExcelEntity> entities;
-    public List<String> hlavicky;
+//    public List<String> hlavicky;
 }

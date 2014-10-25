@@ -8,7 +8,14 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-public class ExcelSerialiser {
+/**
+ * Třídy na generování excelu jsem dělal kdysi dávno (cca 2011),
+ * už vůbec nevím, jak vlastně fungují, ale je to takový "black box",
+ * co mi funguje a nešahám na něj.
+ *
+ * Tahle nějak za sebe nasype různé excel sheety.... asi? nevim
+ */
+ public class ExcelSerialiser {
 
     private Sheet vzor;
     private List<Sheet> pasteSheets;

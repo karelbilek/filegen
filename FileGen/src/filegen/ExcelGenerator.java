@@ -14,6 +14,14 @@ import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Sheet;
 
 
+/**
+ * Třídy na generování excelu jsem dělal kdysi dávno (cca 2011),
+ * už vůbec nevím, jak vlastně fungují, ale je to takový "black box",
+ * co mi funguje a nešahám na něj.
+ *
+ * Tahle vygeneruje XLS a udělá věci kolem, ale pak to pošle
+ * na ExcelGenerator a ExcelSerialiser
+ */
 public class ExcelGenerator extends ObecnyGenerator {
     
     public ExcelGenerator(String templateName, String finalName, String finalFormat, String jsonstring) {

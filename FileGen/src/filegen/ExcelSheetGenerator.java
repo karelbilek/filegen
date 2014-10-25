@@ -9,6 +9,15 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
+
+/**
+ * Třídy na generování excelu jsem dělal kdysi dávno (cca 2011),
+ * už vůbec nevím, jak vlastně fungují, ale je to takový "black box",
+ * co mi funguje a nešahám na něj.
+ *
+ * Tahle nějak z mapy dat a zdrojového sheetu udělá vyplněný sheet.
+ * Tj. tady se fakt dávají data do tabulky.
+ */
 public class ExcelSheetGenerator {
 
     private int counter = 0;

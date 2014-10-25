@@ -35,9 +35,6 @@ public class ExcelGenerator extends ObecnyGenerator {
             }
         }
 
-        if (ed.hlavicky.size() != number_of_sheets) {
-            throw new Exception("Spatny pocet hlavicek");
-        }
 
         InputStream formatIs = new FileInputStream(templateName);
         HSSFWorkbook mainWb = new HSSFWorkbook(formatIs);
@@ -101,7 +98,7 @@ public class ExcelGenerator extends ObecnyGenerator {
         for (Sheet s : outputSheets) {
             Header h = s.getHeader();
 
-            h.setLeft(ed.hlavicky.get(j));
+            h.setLeft("");
             j++;
             PrintSetup p = s.getPrintSetup();
             p.setLandscape(ed.sideways);

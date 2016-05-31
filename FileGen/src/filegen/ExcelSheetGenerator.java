@@ -21,8 +21,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 public class ExcelSheetGenerator {
 
     private int counter = 0;
-    private static Pattern patt = Pattern.compile("\\$\\$\\w+");
-    private HSSFWorkbook wf;
+    private static final Pattern patt = Pattern.compile("\\$\\$\\w+");
+    private final HSSFWorkbook wf;
 
     ExcelSheetGenerator(HSSFWorkbook wf) {
         this.wf = wf;
@@ -65,9 +65,7 @@ public class ExcelSheetGenerator {
 
                     while (m.find()) {
                         String subst = val.substring(m.start() + 2, m.end());
-                        String wat = "CHYBNY OBJECT! ";
-
-                        wat = p.get(subst);
+                        String wat = p.get(subst);
                         if (wat == null) {
                             System.out.println("OMG SPADNU NA " + subst);
                         }

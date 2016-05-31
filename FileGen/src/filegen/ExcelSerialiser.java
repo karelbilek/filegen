@@ -17,11 +17,11 @@ import org.apache.poi.ss.util.CellRangeAddress;
  */
  public class ExcelSerialiser {
 
-    private Sheet vzor;
-    private List<Sheet> pasteSheets;
-    private List<Sheet> sheets;
+    private final Sheet vzor;
+    private final List<Sheet> pasteSheets;
+    private final List<Sheet> sheets;
     //private HSSFWorkbook pasteSheetWorkbook;
-    private int maxRows;
+    private final int maxRows;
 
     public ExcelSerialiser(Sheet vzor,
             List<Sheet> sheets,

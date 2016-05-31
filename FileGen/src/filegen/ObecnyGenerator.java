@@ -14,10 +14,10 @@ import org.apache.commons.io.FileUtils;
 public abstract class ObecnyGenerator {
     abstract protected String getNativeFormat();
 
-    private String templateName;
-    private String finalName;
-    private String finalFormat;
-    private String jsonstring;
+    private final String templateName;
+    private final String finalName;
+    private final String finalFormat;
+    private final String jsonstring;
     
 
     public ObecnyGenerator(String templateName, String finalName, String finalFormat, String jsonstring) {

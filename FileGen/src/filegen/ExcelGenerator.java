@@ -9,9 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
 import org.apache.poi.ss.usermodel.Header;
+import org.apache.poi.ss.usermodel.Picture;
 import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.util.IOUtils;
 
 
 /**
@@ -78,7 +83,7 @@ public class ExcelGenerator extends ObecnyGenerator {
 
         List<Sheet> outputSheets = new ArrayList<Sheet>();
         for (int i = 0; i < number_of_sheets; i++) {
-            String c = new Integer(i + 1).toString();
+            String c = Integer.toString(i + 1);
             Sheet outp = mainWb.createSheet("vysledek " + c);
             outputSheets.add(outp);
         }
@@ -128,6 +133,21 @@ public class ExcelGenerator extends ObecnyGenerator {
             short width = (short) (ed.fitWidth ? 1 : 0);
             p.setFitHeight(height);
             p.setFitWidth(width);
+            
+            for (ExcelImageData image: ed.images) {
+                InputStream inputStream = new FileInputStream(image.path);
+                byte[] bytes = IOUtils.toByteArray(inputStream);
+                int pictureIdx = mainWb.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_PNG);
+                inputStream.close();
+                
+                CreationHelper helper = mainWb.getCreationHelper();
+                Drawing drawing = s.createDrawingPatriarch();
+                ClientAnchor anchor = helper.createClientAnchor();
+                anchor.setCol1(image.x);
+                anchor.setRow1(image.y);
+                Picture pict = drawing.createPicture(anchor, pictureIdx);
+                pict.resize();
+            }
 
 
             System.out.println(p.getFitHeight());

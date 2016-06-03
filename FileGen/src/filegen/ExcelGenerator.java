@@ -146,7 +146,7 @@ public class ExcelGenerator extends ObecnyGenerator {
                 anchor.setCol1(image.x);
                 anchor.setRow1(image.y);
                 Picture pict = drawing.createPicture(anchor, pictureIdx);
-                pict.resize();
+                pict.resize(image.scale);
             }
 
 

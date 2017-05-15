@@ -69,7 +69,7 @@ public class ExcelSheetGenerator {
                         if (wat == null) {
                             System.out.println("OMG SPADNU NA " + subst);
                         }
-                        val = m.replaceFirst(wat);
+                        val = m.replaceFirst(Matcher.quoteReplacement(wat));
                         m = patt.matcher(val);
                     }
 

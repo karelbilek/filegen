@@ -50,7 +50,7 @@ public class PdfFormGenerator extends ObecnyGenerator {
                     childNode.removeChild(childNode.getFirstChild());
                 }
                 for (int j = 0; j < nl.getLength(); j++) {
-                    Node added = childNode.getOwnerDocument().adoptNode(nl.item(j));
+                    Node added = childNode.getOwnerDocument().importNode(nl.item(j), true);
                     childNode.appendChild(added);
                 }
             }  else {

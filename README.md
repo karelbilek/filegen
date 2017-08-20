@@ -11,10 +11,10 @@ the templates are ODF (for documents) and XLS (for spreadsheets). The data that 
 
 you have to run headless openoffice and hook it up to it.
 
-It's BSD licensed, (C) karel bilek, but I don't really care
-
 not sure anyone will use it, there are probably better tools and I am too lazy to document it, I just needed to build it, I built it, and now I am just putting it out there
 
 I am not versioning it or anything
 
 blah
+
+It's Affero GPL licensed, (C) karel bilek, includes iText

@@ -9,6 +9,10 @@ Class-Path: lib/jodconverter-2.2.2.jar lib/jodconverter-cli-2.2.2.jar
  lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.
  jar lib/ridl-3.0.1.jar lib/slf4j-api-1.5.6.jar lib/slf4j-jdk14-1.5.6.
  jar lib/juh-3.0.1.jar lib/jurt-3.0.1.jar lib/unoil-3.0.1.jar lib/poi-
- 3.6-20091214.jar
+ 3.6-20091214.jar lib/itext5-itext-pdfa-5.5.11-javadoc.jar 
+ lib/itext5-itext-pdfa-5.5.11.jar 
+ lib/itext5-itext-xtra-5.5.11.jar 
+ lib/itext5-itextpdf-5.5.11.jar 
+ lib/itext5-xmlworker-5.5.11.jar
 X-COMMENT: Main-Class will be added automatically by build
 

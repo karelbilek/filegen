@@ -17,7 +17,9 @@ public class Main {
         }
         ObecnyGenerator dd;
         if (isWord.equals("1")) {
-            dd= new WordGenerator(address, result, resultType, json);
+            dd = new WordGenerator(address, result, resultType, json);
+        } else if (isWord.equals("2")) {
+            dd = new PdfFormGenerator(address, result, resultType, json);
         } else {
             dd = new ExcelGenerator(address, result, resultType, json);
         }

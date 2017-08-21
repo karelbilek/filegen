@@ -43,6 +43,7 @@ public class PdfFormGenerator extends ObecnyGenerator {
             String childNodePath = path + "/" + childNode.getLocalName();
             if (data.strings.containsKey(childNodePath)) {
                 childNode.setTextContent(data.strings.get(childNodePath));
+                data.strings.remove(childNodePath); // HACK
             } else if (data.xmlStrings.containsKey(childNodePath)) {
                 String s = data.xmlStrings.get(childNodePath);
                 NodeList nl = getXmlNodeFromString(s);

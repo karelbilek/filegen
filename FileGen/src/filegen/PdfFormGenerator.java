@@ -24,7 +24,7 @@ public class PdfFormGenerator extends ObecnyGenerator {
     
     public NodeList getXmlNodeFromString(String s) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilder newDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document parse = newDocumentBuilder.parse(new ByteArrayInputStream(s.getBytes()));
+        Document parse = newDocumentBuilder.parse(new ByteArrayInputStream(s.getBytes("UTF-8")));
         return parse.getFirstChild().getChildNodes();
     }
     

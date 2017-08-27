@@ -83,9 +83,34 @@ public class PdfFormGenerator extends ObecnyGenerator {
         
         stamper.close();
         reader.close();
+
+        if (!(data.acroreadKeys.equals(""))) {
+            this.acroreadTap(resFile, data.acroreadKeys);
+        }
         return resFile;
     }
     
+    
+    // This calls a following shell script, that calls acroread in a virtual X:
+    /*
+export DISPLAY=:65
+Xvfb $DISPLAY -ac -screen 0 1024x768x16 +extension RANDR -extension XINERAMA &
+acroread --display=:65 $1 &
+
+sleep 10
+
+xdotool key $2 Ctrl+s Ctrl+q 
+
+sleep 10
+ps auxww | grep "Xvfb $DISPLAY" | awk '{print $2}' | xargs kill
+    */
+    protected void acroreadTap(File file, String taps) throws IOException, InterruptedException {
+        ProcessBuilder pb = new ProcessBuilder("/acrotap.sh", file.getAbsolutePath(), taps);
+        pb.inheritIO();
+        Process process = pb.start();
+        process.waitFor();
+    }
+
     protected TypeReference getType() {
         return new TypeReference<PdfFormData>() {
         };

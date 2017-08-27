@@ -16,10 +16,12 @@ public class WordGenerator extends ObecnyGenerator {
         super(templateName,finalName,finalFormat,jsonstring);
     }
 
+    @Override
     protected String getNativeFormat() {
         return "odt";
     }
 
+    @Override
     protected File generateNatural(File templateName, Object mapO) throws Exception {
         DocumentTemplateFactory documentTemplateFactory =
                 new DocumentTemplateFactory();
@@ -27,18 +29,15 @@ public class WordGenerator extends ObecnyGenerator {
         WordData wd=(WordData) mapO;
 
         DocumentTemplate template;
-
-        InputStream is = new FileInputStream(templateName);
-        template = documentTemplateFactory.getTemplate(is);
-        is.close();
+        try (InputStream is = new FileInputStream(templateName)) {
+            template = documentTemplateFactory.getTemplate(is);
+        }
 
         File ODTFile = File.createTempFile("ODTemp", ".odt");
-        FileOutputStream outStream = new FileOutputStream(ODTFile);
-
-        Map<String, Object> mapa = wd.all();
-        template.createDocument(mapa, outStream);
-
-        outStream.close();
+        try (FileOutputStream outStream = new FileOutputStream(ODTFile)) {
+            Map<String, Object> mapa = wd.all();
+            template.createDocument(mapa, outStream);
+        }
 
         System.out.println(ODTFile);
         //Runtime.getRuntime().exec("open "+ODTFile);
@@ -52,6 +51,7 @@ public class WordGenerator extends ObecnyGenerator {
 
     }
     
+    @Override
     protected TypeReference getType() {
         return new TypeReference<WordData>() {
         };

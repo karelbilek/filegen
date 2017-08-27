@@ -34,10 +34,12 @@ public class ExcelGenerator extends ObecnyGenerator {
         System.out.println(jsonstring);
     }
 
+    @Override
     protected String getNativeFormat() {
         return "xls";
     }
 
+    @Override
     protected File generateNatural(File templateName, Object jsonO) throws Exception {
 
         ExcelData ed = (ExcelData) jsonO;
@@ -54,7 +56,7 @@ public class ExcelGenerator extends ObecnyGenerator {
       
 
 
-        List<Sheet> ss = new ArrayList<Sheet>();
+        List<Sheet> ss = new ArrayList<>();
         ExcelSheetGenerator esg = new ExcelSheetGenerator(mainWb);
 
         List<ExcelEntity> entities = ed.entities;
@@ -81,7 +83,7 @@ public class ExcelGenerator extends ObecnyGenerator {
         
 
 
-        List<Sheet> outputSheets = new ArrayList<Sheet>();
+        List<Sheet> outputSheets = new ArrayList<>();
         for (int i = 0; i < number_of_sheets; i++) {
             String c = Integer.toString(i + 1);
             Sheet outp = mainWb.createSheet("vysledek " + c);
@@ -94,7 +96,7 @@ public class ExcelGenerator extends ObecnyGenerator {
 
         es.serialise();
 
-        List<Sheet> allSheets = new ArrayList<Sheet>();
+        List<Sheet> allSheets = new ArrayList<>();
         for (int i = 0; i < mainWb.getNumberOfSheets(); ++i) {
             allSheets.add(mainWb.getSheetAt(i));
         }
@@ -135,10 +137,11 @@ public class ExcelGenerator extends ObecnyGenerator {
             p.setFitWidth(width);
             
             for (ExcelImageData image: ed.images) {
-                InputStream inputStream = new FileInputStream(image.path);
-                byte[] bytes = IOUtils.toByteArray(inputStream);
-                int pictureIdx = mainWb.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_PNG);
-                inputStream.close();
+                int pictureIdx;
+                try (InputStream inputStream = new FileInputStream(image.path)) {
+                    byte[] bytes = IOUtils.toByteArray(inputStream);
+                    pictureIdx = mainWb.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_PNG);
+                }
                 
                 CreationHelper helper = mainWb.getCreationHelper();
                 Drawing drawing = s.createDrawingPatriarch();
@@ -158,9 +161,9 @@ public class ExcelGenerator extends ObecnyGenerator {
             File f = File.createTempFile("exceltemp", ".xls");
             f.deleteOnExit();
             System.out.println(f);
-            FileOutputStream outStream = new FileOutputStream(f);
-            mainWb.write(outStream);
-            outStream.close();
+            try (FileOutputStream outStream = new FileOutputStream(f)) {
+                mainWb.write(outStream);
+            }
             return f;
 
 
@@ -168,6 +171,7 @@ public class ExcelGenerator extends ObecnyGenerator {
 
     }
     
+    @Override
     protected TypeReference getType() {
         return new TypeReference<ExcelData>() {
         };

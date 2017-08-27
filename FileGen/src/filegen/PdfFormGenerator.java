@@ -32,6 +32,7 @@ public class PdfFormGenerator extends ObecnyGenerator {
         super(templateName,finalName,finalFormat,jsonstring);
     }
 
+    @Override
     protected String getNativeFormat() {
         return "pdf";
     }
@@ -60,6 +61,7 @@ public class PdfFormGenerator extends ObecnyGenerator {
         }
     }
 
+    @Override
     protected File generateNatural(File templateName, Object mapO) throws Exception {
         PdfFormData data = (PdfFormData) mapO;
         
@@ -83,7 +85,7 @@ public class PdfFormGenerator extends ObecnyGenerator {
         
         stamper.close();
         reader.close();
-
+        
         if (!(data.acroreadKeys.equals(""))) {
             this.acroreadTap(resFile, data.acroreadKeys);
         }
@@ -110,7 +112,8 @@ ps auxww | grep "Xvfb $DISPLAY" | awk '{print $2}' | xargs kill
         Process process = pb.start();
         process.waitFor();
     }
-
+    
+    @Override
     protected TypeReference getType() {
         return new TypeReference<PdfFormData>() {
         };

@@ -9,7 +9,7 @@ public class WordData {
     public Map<String, List<String>> lists;
 
     public Map<String,Object> all() {
-        Map<String, Object> r = new HashMap<String, Object>();
+        Map<String, Object> r = new HashMap<>();
         r.putAll(strings);
         r.putAll(lists);
         return r;
